@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão da Manutenção — Preditiva e Análise de Falhas</title>
+<style>
+:root{
+  --azul:#1d4f7a; --azul2:#2d6f9f; --petroleo:#0d5056;
+  --claro:#f4f7f9; --branco:#fff; --texto:#17212b; --cinza:#5d6a75;
+  --amarelo:#f3c969; --vermelho:#b94747; --verde:#3f775e;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--texto);background:#eef3f5;line-height:1.55}
+header{background:linear-gradient(135deg,var(--petroleo),var(--azul));color:#fff;padding:28px 20px 34px}
+.header-wrap{max-width:1120px;margin:auto;display:grid;grid-template-columns:150px 1fr 150px;gap:24px;align-items:center}
+.logo-box{background:#fff;border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:108px}
+.logo-box img{max-width:100%;max-height:92px;object-fit:contain}
+h1{font-size:clamp(2rem,5vw,3.7rem);line-height:1.05;margin:0 0 8px}
+.subtitle{font-size:1.12rem;opacity:.92}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #d9e1e5;box-shadow:0 3px 12px #0001}
+nav .nav-wrap{max-width:1120px;margin:auto;padding:9px 14px;display:flex;gap:8px;overflow:auto}
+nav a{white-space:nowrap;text-decoration:none;color:var(--azul);font-weight:700;padding:8px 12px;border-radius:999px;background:#edf4f8}
+main{max-width:1120px;margin:auto;padding:22px 16px 60px}
+.hero,.card,.summary,.questions{background:#fff;border-radius:20px;box-shadow:0 8px 28px #18313c12;margin:18px 0;padding:clamp(20px,4vw,34px)}
+.hero{border-top:8px solid var(--amarelo)}
+.hero-grid,.concept-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+.kicker{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--azul2);font-weight:800}
+h2{font-size:clamp(1.55rem,3vw,2.25rem);line-height:1.15;margin:.25em 0 .55em;color:var(--petroleo)}
+h3{color:var(--azul);margin-top:1.2em}
+p{margin:.55em 0}
+ul{padding-left:1.2rem}
+li{margin:.32em 0}
+.figure{background:#f8fafb;border:1px solid #dde6ea;border-radius:16px;padding:10px}
+.figure img{width:100%;height:auto;display:block;border-radius:10px;object-fit:contain}
+.figcap{font-size:.84rem;color:var(--cinza);padding:7px 4px 2px}
+.card{border-left:7px solid var(--azul2)}
+.card:nth-of-type(even){border-left-color:var(--petroleo)}
+.badge{display:inline-block;padding:5px 10px;border-radius:999px;font-size:.8rem;font-weight:800;background:#e9f3f8;color:var(--azul)}
+.callout{margin-top:14px;padding:14px 16px;border-radius:13px;background:#f8f1d8;border-left:4px solid var(--amarelo)}
+.twofig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:18px 0}
+.flow div{background:#eaf3f7;border:1px solid #c6dbe5;padding:11px 7px;border-radius:12px;text-align:center;font-size:.88rem;font-weight:700}
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.matrix div{padding:14px;border-radius:13px;background:#f1f5f7}
+.matrix strong{display:block;color:var(--azul)}
+.summary{border-top:7px solid var(--verde)}
+.remember{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.remember div{background:#eff6f2;border-radius:14px;padding:14px}
+.questions{border-top:7px solid var(--vermelho)}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.q{background:#f7f9fa;border-radius:13px;padding:14px 16px;border-left:4px solid #c9d9e2}
+.q.integr{border-left-color:var(--amarelo);background:#fff9e9}
+.q .n{font-weight:800;color:var(--azul);margin-right:6px}
+footer{background:#173d54;color:#eaf3f6;text-align:center;padding:24px 18px}
+.small{font-size:.88rem;color:var(--cinza)}
+@media(max-width:820px){
+ .header-wrap{grid-template-columns:1fr 1fr}.header-title{grid-column:1/-1;grid-row:1}.logo-box{min-height:90px}
+ .hero-grid,.concept-grid,.qgrid{grid-template-columns:1fr}
+ .remember{grid-template-columns:1fr 1fr}
+ .flow{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+ .remember,.twofig,.matrix{grid-template-columns:1fr}
+ .flow{grid-template-columns:1fr}
+ .logo-box{min-height:76px}
+}
+@media print{
+ nav{display:none} body{background:#fff}.card,.hero,.summary,.questions{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-wrap">
+    <div class="logo-box"><img src="IMG/logo_ufpel.png" alt="Universidade Federal de Pelotas"></div>
+    <div class="header-title">
+      <div class="kicker" style="color:#dcecf5">15000382 · Gestão da Manutenção</div>
+      <h1>Manutenção Preditiva & Análise de Falhas</h1>
+      <div class="subtitle">Do monitoramento da condição à identificação, priorização e prevenção dos modos de falha</div>
+    </div>
+    <div class="logo-box"><img src="IMG/logo_ceng.png" alt="Centro de Engenharias - UFPel"></div>
+  </div>
+</header>
+
+<nav><div class="nav-wrap">
+<a href="#visao">Visão geral</a><a href="#c1">Preditiva</a><a href="#c2">Plano</a><a href="#c3">Vibração</a>
+<a href="#c4">Termografia</a><a href="#c5">Tribologia</a><a href="#c6">Sensores & IA</a>
+<a href="#c7">Análise de falhas</a><a href="#c8">FMEA/FMECA</a><a href="#questoes">Questões</a>
+</div></nav>
+
+<main>
+<section class="hero" id="visao">
+<div class="hero-grid">
+<div>
+<div class="kicker">Objetivo da aula</div>
+<h2>Transformar sinais físicos e dados em decisões de manutenção</h2>
+<p>A manutenção preditiva acompanha parâmetros reais do equipamento para antecipar falhas. A análise de falhas organiza causas, efeitos e relações lógicas para decidir onde agir primeiro.</p>
+<div class="matrix">
+<div><strong>Medir</strong>vibração, temperatura, óleo, deformação e outros sinais.</div>
+<div><strong>Interpretar</strong>histórico, tendência, limites e modos de falha.</div>
+<div><strong>Agir</strong>planejar a intervenção antes da falha funcional ou catastrófica.</div>
+</div>
+<div class="callout"><b>Ideia-chave:</b> não se trata de “medir por medir”. O valor aparece quando o dado muda a decisão de manutenção.</div>
+</div>
+<div class="figure">
+<img src="IMG/monitoramento_condicao.jpg" alt="Monitoramento de condição em equipamento">
+<div class="figcap">Figura original do material: aquisição de dados para manutenção baseada na condição.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c1">
+<div class="concept-grid">
+<div>
+<span class="badge">Conceito 1</span>
+<h2>Manutenção preditiva: intervir o mínimo necessário</h2>
+<p>É realizada a partir do <b>monitoramento das condições de funcionamento</b>. Seu objetivo é prevenir falhas acompanhando parâmetros que representam o estado do sistema.</p>
+<ul>
+<li>reduz intervenções desnecessárias e tende a diminuir custos;</li>
+<li>pode aumentar disponibilidade, durabilidade e segurança;</li>
+<li>é especialmente relevante em equipamentos críticos ou de alto custo;</li>
+<li>quando a intervenção é decidida, a ação física costuma ser uma <b>corretiva planejada</b>.</li>
+</ul>
+<div class="callout">O custo inicial do sistema de monitoramento pode ser elevado; por isso, a seleção de ativos críticos vem antes da compra de sensores.</div>
+</div>
+<div class="figure">
+<img src="IMG/vibracao_campo.jpg" alt="Coleta de vibração em campo">
+<div class="figcap">Figura original: inspeção de condição em equipamento rotativo.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c2">
+<span class="badge">Conceito 2</span>
+<h2>Plano de manutenção preditiva: uma sequência, não um aparelho</h2>
+<div class="flow">
+<div>1. Selecionar ativos</div><div>2. Selecionar técnicas</div><div>3. Definir programa</div><div>4. Definir padrões</div>
+<div>5. Coletar dados</div><div>6. Analisar dados</div><div>7. Corrigir falhas</div>
+</div>
+<div class="concept-grid">
+<div>
+<ul>
+<li><b>Ativos:</b> priorizar equipamentos vitais ao processo ou de alto custo.</li>
+<li><b>Técnicas:</b> escolher em função do tipo de equipamento e do modo de falha.</li>
+<li><b>Programa:</b> definir pontos de medição e periodicidade.</li>
+<li><b>Padrões:</b> estabelecer linha de base e limites de alerta.</li>
+<li><b>Dados:</b> registrar histórico e tendências, emitindo alerta quando limites forem excedidos.</li>
+<li><b>Ação:</b> confirmar a falha e programar a parada no momento mais conveniente, sem ultrapassar limites de segurança.</li>
+</ul>
+</div>
+<div class="figure">
+<img src="IMG/grafico_tendencia.png" alt="Gráfico de tendência com limites e alerta">
+<div class="figcap">Figura original: tendência de variável monitorada, limites de controle e situação de alerta.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c3">
+<div class="concept-grid">
+<div>
+<span class="badge">Conceito 3</span>
+<h2>Vibração e ruído: escutar o comportamento mecânico</h2>
+<p>A análise de vibração e ruídos é amplamente usada em motores, geradores, turbinas, compressores e bombas.</p>
+<ul>
+<li>analisa intensidade das forças de excitação;</li>
+<li>considera a frequência de oscilação;</li>
+<li>depende da mobilidade da estrutura e da fundação;</li>
+<li>pode usar sensores portáteis ou permanentes.</li>
+</ul>
+<h3>Cavitação e aeração</h3>
+<p>Ruído elevado em sistemas hidráulicos pode indicar fenômenos que danificam bombas e comprometem atuadores. A cavitação está associada à formação e colapso de bolhas de vapor; a aeração envolve entrada de ar no fluido.</p>
+</div>
+<div class="figure">
+<img src="IMG/vibracao_campo.jpg" alt="Medição de vibração em equipamento">
+<div class="figcap">Figura original: medição em campo para análise de vibração.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c4">
+<div class="concept-grid">
+<div>
+<span class="badge">Conceito 4</span>
+<h2>Termografia: enxergar temperatura antes de enxergar a falha</h2>
+<p>A termografia detecta falhas precedidas por aumento ou diminuição anormal de temperatura. Pode ser aplicada em componentes em atrito, sistemas elétricos, refrigeração e aquecimento.</p>
+<ul>
+<li>termômetros fazem medição de contato;</li>
+<li>radiômetros e termovisores trabalham com radiação infravermelha;</li>
+<li>a imagem térmica permite avaliar distribuição superficial da temperatura em operação.</li>
+</ul>
+<p>Nos exemplos do material, a técnica é utilizada também para identificar <i>hotspots</i> em painéis elétricos e apoiar a prevenção de falhas e incêndios.</p>
+</div>
+<div class="figure">
+<img src="IMG/termografia.png" alt="Imagem termográfica de equipamento">
+<div class="figcap">Figura original do material: termografia infravermelha.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c5">
+<span class="badge">Conceito 5</span>
+<h2>Tribologia e contaminação: o óleo como fonte de informação</h2>
+<div class="concept-grid">
+<div>
+<p>A tribologia estuda atrito, desgaste e formas de evitá-los. A análise de óleo mede propriedades físico-químicas e identifica contaminantes líquidos ou sólidos.</p>
+<ul>
+<li>viscosidade e acidez;</li>
+<li>concentração de água;</li>
+<li>nível de partículas sólidas;</li>
+<li>forma, tamanho, quantidade e composição das partículas;</li>
+<li>ferrografia: separação de partículas por campos magnéticos.</li>
+</ul>
+<p>O material destaca que partículas pequenas podem ser críticas porque as folgas internas de muitos componentes hidráulicos estão na ordem de poucos micrômetros.</p>
+</div>
+<div class="twofig">
+<div class="figure"><img src="IMG/analise_oleo.jpg" alt="Amostras de óleo"><div class="figcap">Análise de óleo.</div></div>
+<div class="figure"><img src="IMG/tipos_contaminacao.png" alt="Tipos de contaminação"><div class="figcap">Partículas, água e ar.</div></div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c6">
+<span class="badge">Conceito 6</span>
+<h2>Sensores, conectividade e IA: ampliar a capacidade de diagnóstico</h2>
+<div class="concept-grid">
+<div>
+<ul>
+<li><b>Sensores portáteis:</b> coleta periódica em rota.</li>
+<li><b>Sensores integrados:</b> transmissão automática e monitoramento contínuo.</li>
+<li><b>Strain gauge:</b> transforma deformação mecânica em variação elétrica, útil em testes estruturais e de durabilidade.</li>
+<li><b>IoT + cloud:</b> permitem centralizar dados e acompanhar condição real.</li>
+<li><b>Machine Learning:</b> o exemplo da aula combina Random Forest, tratamento de classes raras e SHAP para apoiar previsão e interpretação.</li>
+</ul>
+<div class="callout"><b>Regra prática:</b> tecnologia não elimina a necessidade de linha de base, limites, histórico, conhecimento de engenharia e equipe treinada.</div>
+</div>
+<div class="twofig">
+<div class="figure"><img src="IMG/strain_gauge.jpg" alt="Strain gauge"><div class="figcap">Figura original: strain gauge.</div></div>
+<div class="figure"><img src="IMG/machine_learning_bombas.png" alt="Fluxo de machine learning aplicado a bombas"><div class="figcap">Figura original: exemplo de ML aplicado à previsão de falhas.</div></div>
+</div>
+</div>
+</section>
+
+<section class="card" id="c7">
+<span class="badge">Conceito 7</span>
+<h2>Análise de falhas: da função ao encadeamento de causas</h2>
+<div class="concept-grid">
+<div>
+<p>A análise começa pela compreensão do sistema e de suas funções. O material propõe desdobrar o sistema em subsistemas e componentes, identificando fluxos de energia, material e sinal.</p>
+<h3>Dois tipos de raciocínio</h3>
+<ul>
+<li><b>Indutivo (bottom-up):</b> parte da causa para o efeito.</li>
+<li><b>Dedutivo (top-down):</b> parte do efeito indesejado para buscar causas.</li>
+</ul>
+<h3>Ferramentas</h3>
+<ul>
+<li><b>Ishikawa:</b> organiza causas potenciais.</li>
+<li><b>FTA:</b> representa relações lógicas entre evento de topo, eventos intermediários e eventos básicos.</li>
+<li>Portas <b>E</b> e <b>OU</b> formalizam como os eventos se combinam.</li>
+</ul>
+</div>
+<div class="twofig">
+<div class="figure"><img src="IMG/ishikawa.png" alt="Diagrama de Ishikawa"><div class="figcap">Figura original: causa e efeito.</div></div>
+<div class="figure"><img src="IMG/fta_simbolos.png" alt="Símbolos de árvore de falhas"><div class="figcap">Figura original: símbolos básicos de FTA.</div></div>
+</div>
+</div>
+<div class="figure" style="margin-top:14px">
+<img src="IMG/fta_bombeamento.png" alt="Árvore de falhas de sistema de bombeamento">
+<div class="figcap">Figura original: combinação de Ishikawa e FTA para um sistema de bombeamento.</div>
+</div>
+</section>
+
+<section class="card" id="c8">
+<span class="badge">Conceito 8</span>
+<h2>FMEA e FMECA: priorizar riscos antes que virem perdas</h2>
+<div class="concept-grid">
+<div>
+<p>O FMEA identifica modos de falha conhecidos ou potenciais, suas causas, seus efeitos e ações recomendadas. O FMECA amplia a análise incorporando criticidade.</p>
+<ul>
+<li><b>S</b> = severidade do efeito;</li>
+<li><b>O</b> = ocorrência do modo de falha;</li>
+<li><b>D</b> = dificuldade/probabilidade de detecção;</li>
+<li><b>RPN = S × O × D</b>; no material, quanto menor, melhor.</li>
+</ul>
+<p>O processo é explicitamente apresentado como trabalho de <b>equipe multifuncional</b>, não como preenchimento individual de planilha.</p>
+<div class="callout">O RPN ajuda a ordenar a atenção, mas não substitui julgamento técnico, especialmente quando há requisitos de segurança e regulatórios.</div>
+</div>
+<div class="twofig">
+<div class="figure"><img src="IMG/fmea_planilha.png" alt="Planilha FMEA"><div class="figcap">Figura original: exemplo de FMEA de componente.</div></div>
+<div class="figure"><img src="IMG/fmeca_elementos.png" alt="Elementos do FMECA"><div class="figcap">Figura original: severidade, ocorrência, detecção e ação recomendada.</div></div>
+</div>
+</div>
+</section>
+
+<section class="summary">
+<div class="kicker">Síntese</div>
+<h2>O que precisa ficar da aula</h2>
+<div class="remember">
+<div><b>1. Falha deixa sinais.</b><br>O desafio é medir a variável adequada.</div>
+<div><b>2. Dado precisa de referência.</b><br>Sem linha de base e limite, existe número, não diagnóstico.</div>
+<div><b>3. Diagnóstico precisa de método.</b><br>Ishikawa, FTA e FMEA organizam o raciocínio.</div>
+<div><b>4. Ação precisa de prioridade.</b><br>Criticidade, segurança e produção orientam o momento de intervir.</div>
+</div>
+</section>
+
+<section class="questions" id="questoes">
+<div class="kicker">Estudo e preparação para avaliação</div>
+<h2>Questões</h2>
+<div class="qgrid">
+<div class="q"><span class="n">1.</span>Defina manutenção preditiva e explique por que a intervenção física, quando decidida, pode ser classificada como corretiva planejada.</div>
+<div class="q"><span class="n">2.</span>Cite quatro vantagens da manutenção preditiva apresentadas no material.</div>
+<div class="q"><span class="n">3.</span>Em que situações o investimento inicial em monitoramento preditivo tende a ser mais justificável?</div>
+<div class="q"><span class="n">4.</span>Ordene as sete etapas de um plano de manutenção preditiva.</div>
+<div class="q"><span class="n">5.</span>Qual é a função da linha de base e dos limites de alerta?</div>
+<div class="q"><span class="n">6.</span>Compare coleta por sensores portáteis e coleta automática por sensores integrados.</div>
+<div class="q"><span class="n">7.</span>Quais aspectos são observados na análise de vibração e ruído?</div>
+<div class="q"><span class="n">8.</span>Diferencie cavitação de aeração e indique por que ambas podem gerar ruído e desgaste.</div>
+<div class="q"><span class="n">9.</span>Explique por que a termografia é útil em sistemas elétricos e em componentes sujeitos a atrito.</div>
+<div class="q"><span class="n">10.</span>Quais propriedades e contaminantes podem ser avaliados por análise de óleo?</div>
+<div class="q"><span class="n">11.</span>Por que partículas invisíveis ao olho humano ainda podem comprometer componentes hidráulicos?</div>
+<div class="q"><span class="n">12.</span>Explique o princípio de funcionamento de um strain gauge.</div>
+<div class="q"><span class="n">13.</span>Diferencie raciocínio indutivo e dedutivo na análise de falhas.</div>
+<div class="q"><span class="n">14.</span>Qual é a diferença de finalidade entre Ishikawa e FTA?</div>
+<div class="q"><span class="n">15.</span>O que representam evento de topo, eventos intermediários, eventos básicos e portas lógicas em uma FTA?</div>
+<div class="q"><span class="n">16.</span>Explique o significado de S, O e D no FMEA/FMECA e escreva a fórmula do RPN.</div>
+<div class="q integr"><span class="n">17. Integradora.</span>Uma bomba começa a apresentar aumento gradual de vibração e partículas metálicas no óleo. Proponha uma sequência de diagnóstico e ação usando pelo menos três conceitos da aula.</div>
+<div class="q integr"><span class="n">18. Integradora.</span>Uma empresa comprou sensores e software, mas não definiu pontos de medição, periodicidade, limites de alerta nem responsáveis. Por que o programa pode fracassar mesmo com boa tecnologia?</div>
+<div class="q integr"><span class="n">19. Integradora.</span>Um modo de falha tem baixa ocorrência, mas severidade 10. Discuta por que olhar apenas o RPN pode ser insuficiente.</div>
+<div class="q integr"><span class="n">20. Integradora.</span>Para uma linha com muitos motores e painéis elétricos, proponha quais técnicas preditivas priorizar e justifique.</div>
+</div>
+</section>
+
+<p class="small">Material reorganizado exclusivamente a partir dos três PowerPoints fornecidos. As imagens utilizadas foram extraídas dos próprios arquivos de aula.</p>
+</main>
+
+<footer>
+<strong>Universidade Federal de Pelotas · Centro de Engenharias</strong><br>
+Gestão da Manutenção · Profs. Alejandro Martins e Gilson Porciúncula
+</footer>
+</body></html>

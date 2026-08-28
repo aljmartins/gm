@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão da Manutenção — Normas e Indicadores</title>
+<style>
+:root{
+ --azul:#225b86; --azul2:#3d7fac; --petroleo:#174f58; --texto:#17242d;
+ --fundo:#eef3f5; --branco:#fff; --cinza:#60707b; --ouro:#d9ab42;
+ --verde:#4f8068; --vermelho:#ae4d4d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fundo);font-family:Arial,Helvetica,sans-serif;color:var(--texto);line-height:1.55}
+header{background:linear-gradient(135deg,var(--petroleo),var(--azul));color:#fff;padding:28px 18px 34px}
+.head{max-width:1140px;margin:auto;display:grid;grid-template-columns:145px 1fr 145px;gap:22px;align-items:center}
+.logo{background:#fff;border-radius:15px;padding:10px;display:flex;justify-content:center;align-items:center;min-height:105px}
+.logo img{max-width:100%;max-height:88px;object-fit:contain}
+.head h1{font-size:clamp(2rem,5vw,3.75rem);line-height:1.05;margin:.12em 0}
+.sub{font-size:1.12rem;opacity:.92}
+.kicker{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.8rem;color:#d9ebf5}
+nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #dae4e9;box-shadow:0 3px 12px #0001}
+.nav{max-width:1140px;margin:auto;padding:9px 12px;display:flex;gap:8px;overflow:auto}
+.nav a{text-decoration:none;color:var(--azul);font-weight:700;background:#edf4f8;border-radius:999px;padding:8px 11px;white-space:nowrap}
+main{max-width:1140px;margin:auto;padding:22px 16px 60px}
+.hero,.card,.summary,.questions{background:#fff;border-radius:20px;box-shadow:0 9px 28px #19333f13;margin:18px 0;padding:clamp(20px,4vw,34px)}
+.hero{border-top:8px solid var(--ouro)}
+.card{border-left:7px solid var(--azul2)}
+.card.alt{border-left-color:var(--petroleo)}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+h2{color:var(--petroleo);font-size:clamp(1.55rem,3vw,2.25rem);line-height:1.15;margin:.3em 0 .6em}
+h3{color:var(--azul);margin-bottom:.35em}
+p{margin:.6em 0}
+ul{padding-left:1.2rem}
+li{margin:.34em 0}
+.badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#eaf3f7;color:var(--azul);font-size:.8rem;font-weight:800}
+.figure{background:#f8fafb;border:1px solid #dbe6eb;border-radius:16px;padding:9px}
+.figure img{width:100%;height:auto;display:block;object-fit:contain;border-radius:10px}
+.cap{font-size:.82rem;color:var(--cinza);padding:7px 4px 2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mini{background:#f1f6f8;border-radius:14px;padding:14px}
+.mini strong{display:block;color:var(--azul)}
+.formula{background:#edf5f8;border-left:4px solid var(--azul2);border-radius:12px;padding:13px 15px;margin:12px 0;font-size:1.07rem}
+.callout{background:#fbf4df;border-left:4px solid var(--ouro);border-radius:12px;padding:14px 16px;margin-top:14px}
+.source-note{font-size:.82rem;color:var(--cinza)}
+.table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.95rem}
+.table th,.table td{border:1px solid #d3dfe5;padding:10px;vertical-align:top}
+.table th{background:#eaf2f6;color:var(--azul)}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.kpi div{background:#f3f7f9;border-radius:14px;padding:14px}
+.kpi b{display:block;color:var(--azul);font-size:1.06rem}
+.summary{border-top:7px solid var(--verde)}
+.questions{border-top:7px solid var(--vermelho)}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.q{background:#f7f9fa;border-left:4px solid #bfd4df;border-radius:13px;padding:14px 16px}
+.q.integr{background:#fff9e9;border-left-color:var(--ouro)}
+.q b{color:var(--azul)}
+footer{background:#173e55;color:#eaf3f7;text-align:center;padding:24px 18px}
+@media(max-width:850px){
+ .head{grid-template-columns:1fr 1fr}.headtitle{grid-column:1/-1;grid-row:1}
+ .grid,.qgrid{grid-template-columns:1fr}.four,.kpi{grid-template-columns:1fr 1fr}.three{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .two,.four,.kpi{grid-template-columns:1fr}.logo{min-height:80px}
+}
+@media print{
+ nav{display:none}body{background:#fff}.hero,.card,.summary,.questions{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="head">
+ <div class="logo"><img src="IMG/logo_ufpel.gif" alt="Universidade Federal de Pelotas"></div>
+ <div class="headtitle">
+   <div class="kicker">15000382 · Gestão da Manutenção</div>
+   <h1>Normas & Indicadores</h1>
+   <div class="sub">Da linguagem comum da manutenção à medição de confiabilidade, custos, carga de trabalho e eficiência dos equipamentos</div>
+ </div>
+ <div class="logo"><img src="IMG/logo_ceng.png" alt="Centro de Engenharias — UFPel"></div>
+</div>
+</header>
+
+<nav><div class="nav">
+<a href="#visao">Visão geral</a><a href="#nbr">NBR 5462</a><a href="#ram">RAM</a><a href="#ativos">ISO 55000</a>
+<a href="#condicao">ISO 13374</a><a href="#indicadores">Indicadores</a><a href="#kpis">KPIs</a><a href="#oee">OEE</a><a href="#questoes">Questões</a>
+</div></nav>
+
+<main>
+<section class="hero" id="visao">
+<div class="grid">
+<div>
+<div class="badge">Objetivo da aula</div>
+<h2>Padronizar a linguagem para medir melhor — e medir para gerir melhor</h2>
+<p>As normas organizam conceitos, terminologia e sistemas de gestão. Os indicadores transformam acontecimentos da manutenção em informações comparáveis para apoiar decisões.</p>
+<div class="three">
+<div class="mini"><strong>Normas</strong>definem uma linguagem e uma estrutura comum.</div>
+<div class="mini"><strong>Indicadores</strong>mostram confiabilidade, mantenabilidade, disponibilidade, custos e carga de trabalho.</div>
+<div class="mini"><strong>OEE</strong>integra disponibilidade, desempenho e qualidade.</div>
+</div>
+<div class="callout"><b>Ideia central:</b> um indicador só ajuda se todos souberem exatamente o que está sendo medido. É aí que a padronização deixa de ser burocracia e vira gestão.</div>
+</div>
+<div class="figure">
+<img src="IMG/nbr5462_capa.png" alt="Capa da NBR 5462 sobre confiabilidade e mantenabilidade">
+<div class="cap">Figura original do material: NBR 5462 — Confiabilidade e mantenabilidade.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="nbr">
+<div class="grid">
+<div>
+<span class="badge">Conceito 1</span>
+<h2>NBR 5462: uma linguagem comum para confiabilidade e mantenabilidade</h2>
+<p>No material, a NBR 5462 aparece principalmente como referência terminológica. Ela organiza termos e relações usados na gestão da manutenção.</p>
+<ul>
+<li><b>Defeito:</b> desvio em relação aos requisitos.</li>
+<li><b>Falha:</b> término da capacidade de desempenhar uma função requerida.</li>
+<li><b>Pane:</b> estado de incapacidade de um item cumprir a função requerida.</li>
+<li>Distingue estados de disponibilidade e indisponibilidade.</li>
+<li>Organiza termos de confiabilidade, mantenabilidade, manutenção e tempos relacionados.</li>
+</ul>
+<p>O material destaca ainda quatro anexos: relações entre defeito/falha/pane, símbolos e abreviações, e equivalências terminológicas em português e inglês.</p>
+</div>
+<div class="two">
+<div class="figure"><img src="IMG/estados_item.png" alt="Estados de um item"><div class="cap">Estados de disponibilidade e indisponibilidade.</div></div>
+<div class="figure"><img src="IMG/tempos_item.png" alt="Tempos relacionados ao estado de um item"><div class="cap">Tempos relacionados ao estado do item.</div></div>
+</div>
+</div>
+</section>
+
+<section class="card alt" id="ram">
+<span class="badge">Conceito 2</span>
+<h2>Confiabilidade, mantenabilidade e disponibilidade</h2>
+<div class="kpi">
+<div><b>MTBF</b>tempo médio entre falhas; usado para itens reparáveis.</div>
+<div><b>MTTR</b>tempo médio necessário para restaurar o item após uma falha.</div>
+<div><b>Disponibilidade</b>probabilidade/percentual de o item estar apto quando solicitado.</div>
+<div><b>Confiabilidade R(t)</b>probabilidade de cumprir a função por um tempo t ou mais.</div>
+</div>
+<div class="formula"><b>Disponibilidade assintótica:</b> A = MTBF / (MTBF + MTTR)</div>
+<div class="formula"><b>Taxa de falhas:</b> λ = número de falhas / tempo real de operação &nbsp; | &nbsp; para taxa constante, R(t) = e<sup>−λt</sup></div>
+<div class="grid">
+<div>
+<h3>Exemplo da máquina de rotulagem</h3>
+<p>Nos 30 dias do exemplo do material: 720 h planejadas, 5 falhas e 10 h totais de reparo.</p>
+<table class="table">
+<tr><th>Indicador</th><th>Resultado apresentado</th></tr>
+<tr><td>Tempo operacional real</td><td>710 h</td></tr>
+<tr><td>MTTR</td><td>2 h/falha</td></tr>
+<tr><td>MTBF</td><td>142 h/falha</td></tr>
+<tr><td>Disponibilidade</td><td>98,61%</td></tr>
+<tr><td>Taxa de falhas</td><td>0,00704 falhas/h</td></tr>
+<tr><td>Confiabilidade em 24 h</td><td>84,5%</td></tr>
+</table>
+<div class="callout">O material também separa paradas planejadas de manutenção preventiva/detectiva do cálculo do MTBF e apresenta a disponibilidade geral quando se deseja considerar todas as paradas.</div>
+</div>
+<div class="figure">
+<img src="IMG/diagrama_tempos_manutencao.png" alt="Diagrama de tempos de manutenção">
+<div class="cap">Figura original: decomposição do tempo de manutenção em preventiva, corretiva, reparo, diagnóstico e atrasos.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="ativos">
+<div class="grid">
+<div>
+<span class="badge">Conceito 3</span>
+<h2>ISO 55000: da manutenção à gestão de ativos</h2>
+<p>O material apresenta a família ISO 55000 como referência para estruturar a gestão de ativos:</p>
+<ul>
+<li><b>ISO 55000:</b> escopo, benefícios, termos e definições;</li>
+<li><b>ISO 55001:</b> requisitos para um sistema integrado e eficaz de gestão de ativos;</li>
+<li><b>ISO 55002:</b> diretrizes para implementação.</li>
+</ul>
+<p>A gestão de ativos é associada no material a desempenho financeiro, decisões informadas, gestão de riscos, conformidade, reputação e sustentabilidade organizacional.</p>
+</div>
+<div class="two">
+<div class="figure"><img src="IMG/iso55000.png" alt="ISO 55000 Sistemas de Gestão de Ativos"><div class="cap">Figura original: ISO 55000.</div></div>
+<div class="figure"><img src="IMG/gestao_ativos_beneficios.png" alt="Benefícios da gestão de ativos"><div class="cap">Figura original: dimensões e benefícios da gestão de ativos.</div></div>
+</div>
+</div>
+<div class="figure" style="margin-top:14px">
+<img src="IMG/iso55000_documentos.png" alt="Documentos primários da família ISO 55000">
+<div class="cap">Figura original: relacionamento entre os documentos da família ISO 55000.</div>
+</div>
+</section>
+
+<section class="card alt" id="condicao">
+<div class="grid">
+<div>
+<span class="badge">Conceito 4</span>
+<h2>ISO 13374: arquitetura para monitoramento de condição</h2>
+<p>Dentro do conjunto de normas abordado na aula, a ISO 13374 aparece vinculada ao processamento de dados de monitoramento e diagnóstico de condição.</p>
+<p>A figura original organiza o caminho da informação em etapas, indo da aquisição dos dados até a apresentação/avaliação da condição e recomendações.</p>
+<div class="callout">A mensagem didática é simples: sensores geram sinais; sistemas de gestão precisam transformar esses sinais em informação útil para decisão.</div>
+</div>
+<div class="figure">
+<img src="IMG/iso13374_fluxo.png" alt="Fluxo da ISO 13374 para monitoramento de condição">
+<div class="cap">Figura original do material: fluxo funcional associado à ISO 13374.</div>
+</div>
+</div>
+</section>
+
+<section class="card" id="indicadores">
+<span class="badge">Conceito 5</span>
+<h2>Indicadores: medir o que realmente orienta a decisão</h2>
+<p>O material classifica indicadores em estratégicos, produtividade/eficiência, qualidade/eficácia, efetividade/impacto e capacidade.</p>
+<h3>Premissas de um bom indicador</h3>
+<div class="four">
+<div class="mini"><strong>Útil</strong>necessidade, aplicabilidade e representatividade.</div>
+<div class="mini"><strong>Objetivo</strong>fácil de entender e medir.</div>
+<div class="mini"><strong>Confiável</strong>estável, rastreável e consistente.</div>
+<div class="mini"><strong>Comparável</strong>alinhado a metas e clientes.</div>
+</div>
+<h3>Agrupamento aplicado à manutenção</h3>
+<table class="table">
+<tr><th>Gestão dos ativos</th><th>Gestão de mão de obra</th><th>Gestão de custos</th><th>Gestão das atividades</th></tr>
+<tr><td>idade e disponibilidade dos ativos</td><td>HH, produtividade, treinamento, absenteísmo</td><td>custos por tipo, ativo, grupo e consumo</td><td>previsto × realizado, backlog, retrabalho, segurança</td></tr>
+</table>
+</section>
+
+<section class="card alt" id="kpis">
+<span class="badge">Conceito 6</span>
+<h2>KPIs de manutenção: confiabilidade, carga de trabalho e custo</h2>
+<div class="grid">
+<div>
+<h3>MTBF, MTTR e disponibilidade</h3>
+<p>O exemplo do motor elétrico do material resulta em MTBF de <b>181,6 h</b>, MTTR de <b>12 h</b> e disponibilidade de aproximadamente <b>93,8%</b>.</p>
+<div class="two">
+<div class="figure"><img src="IMG/mtbf_exemplo.png" alt="Exemplo de cálculo de MTBF"><div class="cap">Figura original: MTBF.</div></div>
+<div class="figure"><img src="IMG/mttr_exemplo.png" alt="Exemplo de cálculo de MTTR"><div class="cap">Figura original: MTTR.</div></div>
+</div>
+</div>
+<div class="figure">
+<img src="IMG/disponibilidade_exemplo.png" alt="Relação entre MTBF MTTR e disponibilidade">
+<div class="cap">Figura original: disponibilidade a partir de MTBF e MTTR.</div>
+</div>
+</div>
+</div>
+
+<h3>Backlog</h3>
+<p>É o passivo de atividades de manutenção que ainda precisa ser executado. O material propõe relacionar as horas das ordens em carteira com as horas disponíveis da equipe.</p>
+<div class="figure"><img src="IMG/backlog_formula.png" alt="Fórmula de backlog"><div class="cap">Figura original: composição do backlog em HH.</div></div>
+
+<h3>Custos</h3>
+<div class="two">
+<div class="figure"><img src="IMG/cmf_formula.png" alt="CMF custo de manutenção sobre faturamento"><div class="cap">CMF = custo total de manutenção / faturamento bruto.</div></div>
+<div class="figure"><img src="IMG/cpmv_formula.png" alt="CPMV custo de manutenção sobre valor de reposição"><div class="cap">CPMV = custo total de manutenção / valor de compra de um novo equipamento.</div></div>
+</div>
+</section>
+
+<section class="card" id="oee">
+<span class="badge">Conceito 7</span>
+<h2>OEE: disponibilidade × desempenho × qualidade</h2>
+<p>O material complementar apresenta o OEE como um indicador que mapeia a “paisagem de perdas” entre a capacidade teórica do equipamento e sua saída efetiva.</p>
+<div class="three">
+<div class="mini"><strong>Disponibilidade</strong>A máquina estava funcionando quando deveria produzir?</div>
+<div class="mini"><strong>Desempenho</strong>Quão rápido ela produziu em relação à capacidade teórica?</div>
+<div class="mini"><strong>Qualidade</strong>Quanto do que foi produzido atendeu às especificações?</div>
+</div>
+<div class="formula"><b>OEE = Disponibilidade × Desempenho × Qualidade</b></div>
+<div class="two">
+<div class="figure"><img src="IMG/oee_paisagem_perdas.jpeg" alt="Paisagem de perdas do OEE"><div class="cap">Figura original do DOCX: disponibilidade, desempenho, qualidade e perdas de eficácia.</div></div>
+<div class="figure"><img src="IMG/oee_perdas.jpeg" alt="Perdas que formam o OEE"><div class="cap">Figura original do PPT: perdas de disponibilidade, performance e qualidade convergindo para OEE.</div></div>
+</div>
+</section>
+
+<section class="card alt" id="negocio">
+<span class="badge">Conceito 8</span>
+<h2>OEE e gestão visual: conectar manutenção ao negócio</h2>
+<div class="grid">
+<div>
+<p>O material mostra que OEE não é apenas uma conta de chão de fábrica. Melhorias em disponibilidade, desempenho e qualidade podem afetar capacidade produtiva, margem, ativos necessários e resultados econômicos.</p>
+<p>A gestão visual complementa essa lógica: tendências de MTBF, MTTR, número de quebras e outros indicadores precisam ficar visíveis para acompanhamento e ação.</p>
+<div class="callout"><b>Fechamento da aula:</b> norma sem indicador vira documento; indicador sem ação vira decoração de dashboard. A gestão acontece quando ambos orientam decisões.</div>
+</div>
+<div class="two">
+<div class="figure"><img src="IMG/oee_negocio.png" alt="OEE vinculado ao negócio"><div class="cap">Figura original: ligação entre OEE e resultados do negócio.</div></div>
+<div class="figure"><img src="IMG/gestao_visual.png" alt="Gestão visual de indicadores"><div class="cap">Figura original: painel visual com MTBF, MTTR e número de quebras.</div></div>
+</div>
+</div>
+</section>
+
+<section class="summary">
+<div class="badge">Síntese</div>
+<h2>O que o estudante precisa levar</h2>
+<div class="four">
+<div class="mini"><strong>Padronizar</strong>Defeito, falha, pane, confiabilidade e mantenabilidade precisam ter significado comum.</div>
+<div class="mini"><strong>Medir</strong>MTBF, MTTR, disponibilidade e confiabilidade mostram comportamento técnico.</div>
+<div class="mini"><strong>Gerir</strong>Backlog, CMF e CPMV ajudam a enxergar recursos, carga e custos.</div>
+<div class="mini"><strong>Integrar</strong>OEE conecta perdas técnicas à capacidade de gerar resultado.</div>
+</div>
+</section>
+
+<section class="questions" id="questoes">
+<div class="badge">Estudo e preparação para avaliação</div>
+<h2>Questões</h2>
+<div class="qgrid">
+<div class="q"><b>1.</b> Qual é o objetivo central atribuído à NBR 5462 no material?</div>
+<div class="q"><b>2.</b> Diferencie defeito, falha e pane conforme os conceitos apresentados.</div>
+<div class="q"><b>3.</b> Explique a diferença entre confiabilidade e mantenabilidade.</div>
+<div class="q"><b>4.</b> Para que tipos de itens o material associa MTBF e MTTF?</div>
+<div class="q"><b>5.</b> O que significa MTTR e por que um valor menor tende a ser desejável?</div>
+<div class="q"><b>6.</b> Escreva a relação entre MTBF, MTTR e disponibilidade.</div>
+<div class="q"><b>7.</b> O que representa a taxa de falhas λ?</div>
+<div class="q"><b>8.</b> Quais são as funções atribuídas às ISO 55000, 55001 e 55002?</div>
+<div class="q"><b>9.</b> Qual é a finalidade do fluxo apresentado para a ISO 13374?</div>
+<div class="q"><b>10.</b> Cite cinco premissas apresentadas para a construção de bons indicadores.</div>
+<div class="q"><b>11.</b> Como os indicadores podem ser agrupados em gestão de ativos, mão de obra, custos e atividades?</div>
+<div class="q"><b>12.</b> O que é backlog de manutenção e como ele é interpretado no material?</div>
+<div class="q"><b>13.</b> Diferencie CMF e CPMV.</div>
+<div class="q"><b>14.</b> Quais são os três componentes do OEE e qual pergunta básica cada um responde?</div>
+<div class="q"><b>15.</b> Escreva a fórmula geral do OEE.</div>
+<div class="q"><b>16.</b> Por que a gestão visual de MTBF, MTTR e número de quebras pode apoiar a gestão?</div>
+<div class="q integr"><b>17. Integradora.</b> Uma máquina apresenta MTBF crescente, mas MTTR também crescente. Explique por que a disponibilidade pode não melhorar tanto quanto se esperava.</div>
+<div class="q integr"><b>18. Integradora.</b> Uma fábrica possui baixo OEE. Como você separaria a investigação entre perdas de disponibilidade, desempenho e qualidade?</div>
+<div class="q integr"><b>19. Integradora.</b> Uma equipe reduziu backlog cortando ordens sem executá-las. O indicador melhorou. A gestão melhorou? Justifique usando as premissas de um bom indicador.</div>
+<div class="q integr"><b>20. Integradora.</b> Relacione a lógica da ISO 55000 com indicadores técnicos e econômicos: por que gerir ativos exige olhar além de “quantas máquinas quebraram”?</div>
+</div>
+</section>
+
+<p class="source-note">Conteúdo reorganizado exclusivamente a partir dos materiais fornecidos: normas de gestão da manutenção, indicadores de manutenção e documento complementar sobre OEE. As figuras são originais dos próprios arquivos.</p>
+</main>
+
+<footer>
+<strong>Universidade Federal de Pelotas · Centro de Engenharias</strong><br>
+Gestão da Manutenção · Profs. Alejandro Martins e Gilson Porciúncula
+</footer>
+</body></html>
