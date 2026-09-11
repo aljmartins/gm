@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Resumo de aula - Tecnologias de Manutencao Preditiva</title>
+  <style>
+    :root{--navy:#12304a;--blue:#1377a8;--cyan:#39b8c8;--ink:#20303d;--muted:#637582;--paper:#f4f7f8;--white:#fff;--line:#d7e1e6;--amber:#f0aa32;--green:#238b68;--red:#bd4c4c}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    header{background:linear-gradient(125deg,var(--navy),#175679 64%,#16899b);color:#fff;padding:56px max(6vw,24px) 48px}
+    header .tag{display:inline-block;border:1px solid #ffffff66;border-radius:999px;padding:6px 12px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase}
+    h1{max-width:900px;margin:18px 0 10px;font-size:clamp(2.2rem,5vw,4.4rem);line-height:1.03}header p{max-width:820px;font-size:1.16rem;color:#e7f5f7}
+    nav{position:sticky;top:0;z-index:5;background:#ffffffed;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);padding:10px max(5vw,18px);overflow:auto;white-space:nowrap}
+    nav a{display:inline-block;color:var(--navy);text-decoration:none;font-weight:700;font-size:.88rem;padding:7px 10px}
+    main{width:min(1120px,92vw);margin:34px auto 70px}.card,.concept,.tech,details{background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:0 4px 18px #17384b0b}
+    section{scroll-margin-top:74px;margin:50px 0}.eyebrow{color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+    h2{font-size:clamp(1.65rem,3.4vw,2.6rem);line-height:1.14;margin:.25rem 0 1rem;color:var(--navy)}h3{color:var(--navy);line-height:1.25;margin:.25rem 0 .55rem}
+    .lead{font-size:1.12rem;max-width:850px}.callout{padding:24px 26px;border-left:6px solid var(--amber)}
+    .formula{display:grid;grid-template-columns:repeat(9,auto);gap:10px;align-items:center;justify-content:center;text-align:center;margin:28px 0}.formula span{background:#e8f4f6;border-radius:12px;padding:12px 16px;font-weight:800}.formula b{color:var(--blue);font-size:1.3rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.concept{padding:22px;position:relative}.num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;font-weight:900;margin-bottom:12px}
+    .concept p,.tech p{margin:.45rem 0}.tech{padding:23px;border-top:5px solid var(--cyan)}.tech .sense{color:var(--green);font-weight:800}.tech ul{padding-left:20px}
+    table{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 18px #17384b0b}th,td{padding:13px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--navy);color:#fff}tr:last-child td{border-bottom:0}.table-wrap{overflow:auto;border-radius:16px}
+    .steps{counter-reset:step;display:grid;gap:13px}.step{counter-increment:step;background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 18px 17px 64px;position:relative}.step:before{content:counter(step);position:absolute;left:18px;top:14px;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--blue);color:#fff;font-weight:900}
+    .warning{border-left-color:var(--red)}.modern{border-left-color:var(--cyan)}.chips{display:flex;flex-wrap:wrap;gap:9px}.chip{background:#e7f1f5;color:var(--navy);padding:7px 11px;border-radius:999px;font-weight:700;font-size:.9rem}
+    details{padding:15px 18px;margin:11px 0}summary{cursor:pointer;font-weight:800;color:var(--navy)}details p{margin-bottom:.2rem}.answer{border-left:4px solid var(--green);padding-left:13px}
+    footer{background:var(--navy);color:#dceaf0;padding:30px max(5vw,20px);font-size:.9rem}footer p{max-width:1000px;margin:7px auto}
+    @media(max-width:900px){.formula{grid-template-columns:1fr}.formula b{transform:rotate(90deg)}}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}th,td{min-width:155px}header{padding-top:40px}}
+    @media print{nav{display:none}body{background:#fff;font-size:12pt}.card,.concept,.tech,details,table{box-shadow:none;break-inside:avoid}header{padding:28px;color:#fff}section{margin:28px 0}}
+  </style>
+</head>
+<body>
+<header>
+  <span class="tag">Gestao da Manutencao</span>
+  <h1>Tecnologias de Manutencao Preditiva</h1>
+  <p>Resumo de aula: dos sinais fisicos da degradacao ate a decisao de intervir no momento certo.</p>
+</header>
+<nav><a href="#visao">Visao geral</a><a href="#conceitos">Conceitos</a><a href="#tecnologias">Tecnologias</a><a href="#sensores">Sensores</a><a href="#programa">Programa</a><a href="#atual">Atualizacao</a><a href="#revisao">Revisao</a></nav>
+<main>
+  <section id="visao">
+    <div class="eyebrow">Ideia central</div><h2>Prever nao e adivinhar</h2>
+    <p class="lead">A manutencao preditiva acompanha a condicao real do ativo para reconhecer o inicio de um mecanismo de degradacao. O objetivo e agir depois que o problema deixa sinais mensuraveis, mas antes que ele produza falha funcional, perda de seguranca ou parada cara.</p>
+    <div class="formula" aria-label="Cadeia de decisao"><span>Fenomeno fisico</span><b>→</b><span>Sensor ou ensaio</span><b>→</b><span>Dado</span><b>→</b><span>Diagnostico</span><b>→</b><span>Decisao</span></div>
+    <div class="card callout"><strong>Ponto decisivo do capitulo:</strong> comprar instrumento nao cria um programa preditivo. Aplicacao correta, treinamento, repetibilidade da coleta, interpretacao competente e capacidade de executar o reparo formam um unico sistema.</div>
+  </section>
+
+  <section id="conceitos">
+    <div class="eyebrow">Base conceitual</div><h2>12 conceitos que organizam a aula</h2>
+    <div class="grid">
+      <article class="concept"><span class="num">1</span><h3>Mecanismo de degradacao</h3><p>Processo fisico, quimico, eletrico ou operacional que reduz gradualmente a capacidade do ativo.</p></article>
+      <article class="concept"><span class="num">2</span><h3>Falha potencial</h3><p>Condicao detectavel que indica que a falha funcional esta a caminho. E a janela em que a preditiva trabalha.</p></article>
+      <article class="concept"><span class="num">3</span><h3>Condicao do ativo</h3><p>Estado inferido por temperatura, vibracao, ruido, corrente, pressao, desempenho ou residuos de desgaste.</p></article>
+      <article class="concept"><span class="num">4</span><h3>Variavel indicadora</h3><p>Grandeza cuja mudanca tem relacao util com a degradacao que se deseja acompanhar.</p></article>
+      <article class="concept"><span class="num">5</span><h3>Linha de base</h3><p>Retrato do comportamento normal do equipamento em condicoes operacionais conhecidas.</p></article>
+      <article class="concept"><span class="num">6</span><h3>Tendencia</h3><p>Sequencia de medicoes comparaveis ao longo do tempo. Uma leitura isolada raramente conta a historia inteira.</p></article>
+      <article class="concept"><span class="num">7</span><h3>Alarme</h3><p>Regra que sinaliza desvio. Pode considerar limite absoluto, taxa de mudanca e comparacao entre componentes semelhantes.</p></article>
+      <article class="concept"><span class="num">8</span><h3>Diagnostico</h3><p>Interpretacao das evidencias para identificar o defeito provavel e sua causa. Alarme nao e diagnostico.</p></article>
+      <article class="concept"><span class="num">9</span><h3>Prognostico</h3><p>Estimativa da evolucao futura da degradacao e, quando possivel, da vida util remanescente.</p></article>
+      <article class="concept"><span class="num">10</span><h3>Criticidade</h3><p>Combinacao de consequencias e probabilidade que define onde monitorar primeiro e quanto investir.</p></article>
+      <article class="concept"><span class="num">11</span><h3>Repetibilidade</h3><p>Mesma rota, ponto, instrumento e condicao operacional tornam medicoes sucessivas comparaveis.</p></article>
+      <article class="concept"><span class="num">12</span><h3>Acao planejada</h3><p>O dado so gera valor quando altera uma decisao: inspecionar, lubrificar, alinhar, reparar, programar ou continuar operando.</p></article>
+    </div>
+  </section>
+
+  <section id="tecnologias">
+    <div class="eyebrow">Seis familias do PDF</div><h2>O que cada tecnologia enxerga</h2>
+    <div class="grid">
+      <article class="tech"><h3>1. Termografia infravermelha</h3><p class="sense">Mede: radiacao infravermelha e padroes de temperatura.</p><p>Localiza aquecimento anormal e diferencas termicas sem contato.</p><ul><li><b>Eletrica:</b> conexoes frouxas, desequilibrio de carga, contatos e disjuntores.</li><li><b>Mecanica:</b> atrito, rolamentos, desalinhamento, correias e lubrificacao.</li><li><b>Processos e edificacoes:</b> refratarios, vapor, isolamento e umidade em telhados.</li></ul><p><b>Cuidado:</b> emissividade, reflexos, distancia, carga e ambiente podem distorcer a leitura.</p></article>
+      <article class="tech"><h3>2. Analise de oleo e particulas</h3><p class="sense">Mede: propriedades do lubrificante, contaminantes e metais de desgaste.</p><p>Responde a tres perguntas: o oleo ainda serve? o sistema foi contaminado? a maquina esta se desgastando?</p><ul><li>Viscosidade, acidez e basicidade.</li><li>Agua, silicio e outros contaminantes.</li><li>Ferro, cobre, cromo, aluminio e outros metais.</li><li>Ferrografia e contagem de particulas.</li></ul><p><b>Cuidado:</b> amostrar sempre em ponto representativo, preferencialmente ativo e antes da filtragem.</p></article>
+      <article class="tech"><h3>3. Ultrassom</h3><p class="sense">Mede: energia acustica em frequencias acima da audicao humana.</p><p>Detecta fenomenos que produzem turbulencia, atrito ou descarga eletrica.</p><ul><li>Vazamentos de ar comprimido, gas e vacuo.</li><li>Armadilhas de vapor e valvulas.</li><li>Rolamentos e deficiencia de lubrificacao.</li><li>Arco, tracking e corona em sistemas eletricos.</li></ul><p><b>Cuidado:</b> a interpretacao depende do caminho do som, ruido de fundo e acesso ao componente.</p></article>
+      <article class="tech"><h3>4. Analise de vibracao</h3><p class="sense">Mede: deslocamento, velocidade ou aceleracao vibratoria.</p><p>O espectro de frequencias ajuda a separar fontes que se misturam no sinal global.</p><ul><li>Desbalanceamento, desalinhamento e folgas.</li><li>Defeitos em rolamentos e engrenagens.</li><li>Ressonancia, cavitacao e problemas de correia.</li><li>Alteracoes eletricas refletidas mecanicamente.</li></ul><p><b>Cuidado:</b> ponto, direcao, rotacao, carga e montagem do sensor precisam ser controlados.</p></article>
+      <article class="tech"><h3>5. Analise de motores</h3><p class="sense">Mede: resposta eletrica do enrolamento e assinatura de corrente.</p><p>Complementa termografia e vibracao na avaliacao do conjunto motor-carga.</p><ul><li><b>Surge test:</b> deterioracao do isolamento entre espiras ou fases e bobinas abertas/invertidas.</li><li><b>MCSA:</b> variacoes de carga mecanica aparecem como modulacoes na corrente.</li><li>Ajuda a reconhecer problemas eletricos e mecanicos sem depender de uma unica evidencia.</li></ul><p><b>Cuidado:</b> tecnicas especializadas exigem treinamento e referencia historica.</p></article>
+      <article class="tech"><h3>6. Tendencia de desempenho</h3><p class="sense">Mede: variaveis de processo e eficiencia ja disponiveis na instalacao.</p><p>Transforma instrumentos comuns em fontes de informacao sobre saude e desempenho.</p><ul><li>Pressao diferencial em filtros.</li><li>Temperaturas e delta T em trocadores.</li><li>Pressao, vazao, consumo, rendimento e ciclos liga-desliga.</li><li>Aplicacoes em bombas, HVAC, compressores e caldeiras.</li></ul><p><b>Cuidado:</b> registrar dado sem finalidade apenas cria um arquivo muito organizado de coisas inuteis.</p></article>
+    </div>
+  </section>
+
+  <section id="sensores">
+    <div class="eyebrow">Mapa pratico</div><h2>Sensores, variaveis e falhas</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Sensor / instrumento</th><th>Variavel observada</th><th>Exemplos de indicios</th><th>Ativos tipicos</th></tr></thead>
+      <tbody>
+        <tr><td>Camera termica / pirômetro IR</td><td>Temperatura superficial e padrao termico</td><td>Resistencia eletrica, atrito, perda de isolamento, fluxo anormal</td><td>Paineis, motores, rolamentos, fornos, telhados</td></tr>
+        <tr><td>Acelerometro piezoeletrico ou MEMS</td><td>Aceleracao e frequencias de vibracao</td><td>Desbalanceamento, desalinhamento, folga, rolamento, engrenagem</td><td>Bombas, ventiladores, redutores, motores</td></tr>
+        <tr><td>Sensor ultrassonico / detector acustico</td><td>Ultrassom aereo ou estrutural</td><td>Vazamento, turbulencia, descarga eletrica, atrito</td><td>Ar comprimido, vapor, valvulas, rolamentos, subestacoes</td></tr>
+        <tr><td>Transformador de corrente / alicate / analisador</td><td>Corrente e componentes de frequencia</td><td>Barras quebradas, excentricidade, variacao de carga, falha eletrica</td><td>Motores e cargas acionadas</td></tr>
+        <tr><td>RTD, termopar ou sensor de contato</td><td>Temperatura pontual</td><td>Sobreaquecimento e degradacao termica</td><td>Mancais, processos, trocadores, fornos</td></tr>
+        <tr><td>Transdutor de pressao / pressao diferencial</td><td>Pressao e perda de carga</td><td>Filtro saturado, obstrucao, cavitacao, perda de desempenho</td><td>Filtros, bombas, HVAC, hidraulica</td></tr>
+        <tr><td>Medidor de vazao</td><td>Vazao de fluido</td><td>Restricao, vazamento, desgaste e operacao fora do ponto</td><td>Bombas, redes, trocadores, compressores</td></tr>
+        <tr><td>Laboratorio / sensor de oleo</td><td>Viscosidade, agua, particulas, elementos</td><td>Contaminacao, degradacao do oleo e desgaste interno</td><td>Motores, turbinas, redutores, sistemas hidraulicos</td></tr>
+        <tr><td>Data logger / PLC / sistema supervisório</td><td>Series temporais de processo</td><td>Deriva, ciclos excessivos, queda de eficiencia, anomalias operacionais</td><td>Caldeiras, HVAC, linhas e utilidades</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="programa">
+    <div class="eyebrow">Implantacao</div><h2>Do instrumento ao programa preditivo</h2>
+    <div class="steps">
+      <div class="step"><b>Conhecer os ativos.</b> Criar ou depurar o cadastro mestre e compreender funcao, regime e contexto operacional.</div>
+      <div class="step"><b>Priorizar por criticidade.</b> Comecar por seguranca, ambiente, continuidade, qualidade e impacto economico.</div>
+      <div class="step"><b>Relacionar falhas e sinais.</b> Para cada modo de falha relevante, perguntar qual fenomeno aparece antes da perda da funcao.</div>
+      <div class="step"><b>Escolher tecnologia e ponto de medicao.</b> Nem toda tecnica serve para todo defeito; tecnicas complementares reduzem ambiguidade.</div>
+      <div class="step"><b>Definir linha de base e rota.</b> Padronizar ponto, direcao, carga, frequencia, instrumento e identificacao.</div>
+      <div class="step"><b>Analisar tendencia e contexto.</b> Comparar historico, equipamentos semelhantes, condicao operacional e limites tecnicos.</div>
+      <div class="step"><b>Confirmar o diagnostico.</b> Cruzar evidencias antes de condenar o componente.</div>
+      <div class="step"><b>Gerar e executar a acao.</b> Integrar achado, prioridade, ordem de servico, planejamento e retorno do que foi encontrado no reparo.</div>
+      <div class="step"><b>Aprender com o resultado.</b> Verificar se a intervencao eliminou o sinal e ajustar alarmes, rotas e estrategia.</div>
+    </div>
+  </section>
+
+  <section id="atual">
+    <div class="eyebrow">Ampliacao didatica</div><h2>Como essas tecnicas entram na manutencao conectada</h2>
+    <p class="lead">O principio fisico permanece o mesmo; mudou a escala de coleta, comunicacao e analise. Sensores menores e conectados permitem monitoramento continuo, mas nao aposentam o conhecimento de engenharia.</p>
+    <div class="chips"><span class="chip">Sensores MEMS</span><span class="chip">IIoT</span><span class="chip">Monitoramento online</span><span class="chip">Edge computing</span><span class="chip">CMMS / EAM</span><span class="chip">Analitica e IA</span><span class="chip">Gemeo digital</span><span class="chip">Ciberseguranca</span></div>
+    <div class="grid" style="margin-top:18px">
+      <div class="card callout modern"><h3>O que a tecnologia acrescenta</h3><p>Mais pontos e frequencia de coleta; alertas automaticos; fusao de sinais; acompanhamento remoto; correlacao com carga, producao e ambiente; integracao com ordens de servico.</p></div>
+      <div class="card callout warning"><h3>O que ela nao resolve sozinha</h3><p>Sensor mal instalado, dado sem contexto, cadastro ruim, alarme sem responsavel, modelo sem validacao e manutencao sem capacidade de resposta continuam produzindo falhas — agora com dashboard colorido.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Comparacao</div><h2>Preventiva, baseada em condicao e preditiva</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Estrategia</th><th>Gatilho</th><th>Pergunta principal</th><th>Risco tipico</th></tr></thead>
+      <tbody>
+        <tr><td>Preventiva sistematica</td><td>Tempo, calendario ou uso</td><td>Chegou o intervalo?</td><td>Intervir cedo demais ou tarde demais</td></tr>
+        <tr><td>Baseada em condicao</td><td>Desvio observado</td><td>A condicao exige acao?</td><td>Medir algo que nao representa o modo de falha</td></tr>
+        <tr><td>Preditiva / prognostica</td><td>Tendencia e estimativa de evolucao</td><td>Quando a intervencao sera necessaria?</td><td>Confundir previsao estatistica com certeza</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="revisao">
+    <div class="eyebrow">Verificacao de aprendizagem</div><h2>12 perguntas para revisar</h2>
+    <details><summary>1. Qual e a diferenca entre detectar uma anomalia e diagnosticar uma falha?</summary><p class="answer">A anomalia indica que o comportamento se desviou do esperado. O diagnostico interpreta evidencias para apontar o defeito e sua causa provavel.</p></details>
+    <details><summary>2. Por que uma unica medicao de temperatura ou vibracao pode enganar?</summary><p class="answer">Porque carga, velocidade, ambiente e operacao alteram o sinal. A tendencia sob condicoes comparaveis oferece evidencia mais forte.</p></details>
+    <details><summary>3. Que tres dimensoes a analise de oleo avalia?</summary><p class="answer">Condicao do lubrificante, contaminacao/integridade do sistema e desgaste da maquina.</p></details>
+    <details><summary>4. Que falhas o ultrassom detecta especialmente bem?</summary><p class="answer">Vazamentos e turbulencia, defeitos iniciais de rolamentos/lubrificacao e descargas eletricas como corona, arco ou tracking.</p></details>
+    <details><summary>5. Por que a vibracao e analisada no dominio da frequencia?</summary><p class="answer">Porque diferentes componentes e mecanismos geram frequencias caracteristicas; o espectro ajuda a separar fontes misturadas no sinal.</p></details>
+    <details><summary>6. Como a assinatura de corrente informa sobre a carga mecanica?</summary><p class="answer">O motor atua como transdutor: variacoes mecanicas de torque e carga modulam a corrente eletrica, produzindo componentes analisaveis.</p></details>
+    <details><summary>7. Qual e a vantagem economica da tendencia de desempenho?</summary><p class="answer">Frequentemente reutiliza instrumentacao e dados ja existentes, permitindo detectar perda de eficiencia e necessidade de manutencao com baixo investimento adicional.</p></details>
+    <details><summary>8. Por que criticidade deve vir antes da compra de sensores?</summary><p class="answer">Porque define onde a falha importa e direciona recursos para ativos cujo risco justifica monitoramento e resposta.</p></details>
+    <details><summary>9. Cite um caso em que duas tecnologias devam ser combinadas.</summary><p class="answer">Um motor com aquecimento pode ser avaliado por termografia, vibracao e corrente; juntas, as tecnicas ajudam a separar problema eletrico, rolamento, desalinhamento ou sobrecarga.</p></details>
+    <details><summary>10. O que torna uma rota de coleta repetivel?</summary><p class="answer">Ponto, direcao, metodo de montagem, instrumento, configuracao e condicao operacional padronizados.</p></details>
+    <details><summary>11. Qual e o erro de gestao mais comum em um projeto de monitoramento?</summary><p class="answer">Tratar a aquisicao do sensor como fim. Sem processo de analise, responsabilidade, ordem de servico e verificacao do reparo, o dado nao gera valor.</p></details>
+    <details><summary>12. Quando contratar servico externo pode ser melhor?</summary><p class="answer">Quando ha poucos ativos, uso esporadico, alto custo do instrumento ou falta de especialistas internos. A decisao deve considerar criticidade, frequencia e custo total.</p></details>
+  </section>
+
+  <section>
+    <div class="card callout"><h2 style="font-size:1.55rem">Sintese em uma frase</h2><p><strong>Manutencao preditiva e a disciplina de transformar sinais fisicos da degradacao em intervencoes tecnicamente justificadas e economicamente oportunas.</strong></p></div>
+  </section>
+</main>
+<footer>
+  <p><strong>Fonte-base:</strong> Capitulo 6, “Tecnologias de Manutencao Preditiva”, do <em>Guia de Melhores Praticas de Operacoes e Manutencao - versao 3.0</em>, fornecido para a aula.</p>
+  <p>As secoes “Ampliacao didatica” e o mapa de sensores reorganizam e atualizam os conceitos para fins de ensino. Valores monetarios e indicacoes de fornecedores do documento original foram omitidos do resumo por serem historicos e dependentes do contexto.</p>
+</footer>
+</body>
+</html>
