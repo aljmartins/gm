@@ -1,0 +1,12 @@
+TPM E GESTÃO DA MANUTENÇÃO — CASOS
+
+Extraia o ZIP completo e abra casos_tpm/index.html.
+Mantenha as pastas img e fontes junto ao HTML, bem como style.css e interacoes.js.
+
+Conteúdo: 8 módulos, 9 documentos originais, 17 recursos visuais, 24 perguntas com respostas comentadas, comparação filtrável por tipo de estudo.
+
+O conteúdo funciona sem internet. Ao abrir os PDFs, o navegador pode respeitar o número de página do link; caso não o faça, navegue até a página indicada no resumo.
+O botão de impressão inclui todas as respostas e todos os casos.
+
+Créditos em creditos.md. Referências e notas de consistência no final do HTML.
+Para hospedar em GitHub Pages, publique todo o conteúdo desta pasta preservando os caminhos relativos.
