@@ -1,0 +1,14 @@
+TPM — Manutenção Produtiva Total
+
+1. Extraia todo o ZIP.
+2. Abra tpm/index.html em um navegador.
+3. Mantenha a pasta img ao lado do HTML.
+
+O conteúdo principal, imagens, simulador e respostas funcionam sem internet.
+Vídeos e referências externas exigem conexão.
+
+Para publicar no GitHub Pages, envie o conteúdo da pasta tpm preservando os caminhos.
+Para imprimir, use o botão do cabeçalho. As respostas são incluídas na impressão.
+
+Conteúdo: 8 blocos conceituais, 16 recursos visuais (8 extraídos e 8 criados), 24 questões com respostas e 5 links de vídeos.
+Fontes e notas de revisão no final do HTML. Proveniência dos recursos em creditos.md.
